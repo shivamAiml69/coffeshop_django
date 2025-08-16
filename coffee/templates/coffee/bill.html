@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Your Coffee Bill</title>
+    <style>
+        body {
+            margin: 0;
+            font-family: 'Segoe UI', 'Roboto', Arial, sans-serif;
+            background: linear-gradient(120deg, #fbeee6 0%, #d7c4a3 100%);
+            color: #4b2e05;
+        }
+        .bill-container {
+            max-width: 500px;
+            margin: 3rem auto;
+            background: #fffbe6;
+            border-radius: 1.2rem;
+            box-shadow: 0 4px 24px rgba(111, 78, 55, 0.10);
+            padding: 2rem;
+        }
+        h1 {
+            text-align: center;
+            color: #6f4e37;
+            margin-bottom: 2rem;
+            font-size: 2rem;
+            letter-spacing: 2px;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 1.5rem;
+        }
+        th, td {
+            padding: 0.7rem;
+            text-align: left;
+            border-bottom: 1px solid #d7c4a3;
+        }
+        th {
+            background: #ffe6c7;
+            color: #6f4e37;
+        }
+        .total-row td {
+            font-weight: bold;
+            color: #a67c52;
+            font-size: 1.1rem;
+        }
+        .thank-you {
+            text-align: center;
+            font-size: 1.1rem;
+            color: #6f4e37;
+            margin-top: 1.5rem;
+        }
+        .checkout-btn {
+            display: block;
+            margin: 2rem auto 0 auto;
+            padding: 0.7rem 2rem;
+            background: linear-gradient(90deg, #a67c52 0%, #6f4e37 100%);
+            color: #fff;
+            border-radius: 2rem;
+            text-decoration: none;
+            font-weight: bold;
+            box-shadow: 0 2px 8px rgba(111, 78, 55, 0.12);
+            border: none;
+            transition: background 0.2s, transform 0.2s;
+            cursor: pointer;
+            font-size: 1.1rem;
+        }
+        .checkout-btn:hover {
+            background: linear-gradient(90deg, #d7c4a3 0%, #a67c52 100%);
+            color: #4b2e05;
+            transform: scale(1.05);
+        }
+    </style>
+</head>
+<body>
+    <div class="bill-container">
+        <h1>Your Coffee Bill</h1>
+        <form action="{% url 'bill' %}" method="post">
+            {% csrf_token %}
+            <table>
+                <tr>
+                    <th>Coffee</th>
+                    <th>Qty</th>
+                    <th>Price</th>
+                    <th>Amount</th>
+                </tr>
+                {% for item in items %}
+                <tr>
+                    <td>{{ item.coffee.name }}</td>
+                    <td>
+                        <input type="hidden" name="coffee_id_{{ item.coffee.id }}" value="{{ item.coffee.id }}">
+                        <input type="number" name="quantity_{{ item.coffee.id }}" value="{{ item.quantity }}" min="1" max="{{ item.coffee.quantity }}">
+                    </td>
+                    <td>₹{{ item.coffee.price }}</td>
+                    <td>₹{{ item.amount }}</td>
+                </tr>
+                {% endfor %}
+                <tr class="total-row">
+                    <td colspan="3">Total</td>
+                    <td>₹{{ total }}</td>
+                </tr>
+            </table>
+            <button type="submit" name="checkout" value="1" class="checkout-btn">Checkout</button>
+        </form>
+        <div class="thank-you">
+            Thank you for visiting Coffee Shop!<br>
+            Have a great day!
+        </div>
+    </div>
+</body>
+</html>

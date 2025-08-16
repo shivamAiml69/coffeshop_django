@@ -1,0 +1,116 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Coffee Menu</title>
+    <style>
+        body {
+            margin: 0;
+            font-family: 'Segoe UI', 'Roboto', Arial, sans-serif;
+            background: linear-gradient(120deg, #fbeee6 0%, #d7c4a3 100%);
+            color: #4b2e05;
+        }
+        .menu-container {
+            max-width: 900px;
+            margin: 3rem auto;
+            background: rgba(255,255,255,0.9);
+            border-radius: 1.5rem;
+            box-shadow: 0 4px 24px rgba(111, 78, 55, 0.10);
+            padding: 2rem;
+        }
+        h1 {
+            text-align: center;
+            color: #6f4e37;
+            margin-bottom: 2rem;
+            font-size: 2.5rem;
+            letter-spacing: 2px;
+        }
+        .coffee-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+        }
+        .coffee-item {
+            background: #fffbe6;
+            border-radius: 1rem;
+            box-shadow: 0 2px 8px rgba(111, 78, 55, 0.08);
+            padding: 1.5rem;
+            text-align: center;
+            transition: transform 0.2s;
+        }
+        .coffee-item:hover {
+            transform: scale(1.03);
+            box-shadow: 0 4px 16px rgba(111, 78, 55, 0.15);
+        }
+        .coffee-img {
+            width: 120px;
+            height: 120px;
+            object-fit: cover;
+            border-radius: 50%;
+            margin-bottom: 1rem;
+            border: 3px solid #ffe6c7;
+            background: #fff;
+        }
+        .coffee-name {
+            font-size: 1.3rem;
+            font-weight: bold;
+            color: #6f4e37;
+            margin-bottom: 0.5rem;
+        }
+        .coffee-price {
+            font-size: 1.1rem;
+            color: #a67c52;
+            margin-bottom: 0.5rem;
+        }
+        .coffee-qty {
+            font-size: 0.95rem;
+            color: #4b2e05;
+            margin-bottom: 0.5rem;
+        }
+        .add-btn {
+            display: block;
+            margin: 2rem auto 0 auto;
+            padding: 0.7rem 2rem;
+            background: linear-gradient(90deg, #a67c52 0%, #6f4e37 100%);
+            color: #fff;
+            border-radius: 2rem;
+            text-decoration: none;
+            font-weight: bold;
+            box-shadow: 0 2px 8px rgba(111, 78, 55, 0.12);
+            border: none;
+            transition: background 0.2s, transform 0.2s;
+            cursor: pointer;
+            font-size: 1.1rem;
+        }
+        .add-btn:hover {
+            background: linear-gradient(90deg, #d7c4a3 0%, #a67c52 100%);
+            color: #4b2e05;
+            transform: scale(1.05);
+        }
+    </style>
+</head>
+<body>
+    <div class="menu-container">
+        <h1>Our Coffee Menu</h1>
+        <form action="{% url 'bill' %}" method="post">
+            {% csrf_token %}
+            <div class="coffee-list">
+                {% for coffee in coffees %}
+                <div class="coffee-item">
+                    <img src="{{ coffee.image }}" alt="{{ coffee.name }}" class="coffee-img">
+                    <div class="coffee-name">{{ coffee.name }}</div>
+                    <div class="coffee-price">₹{{ coffee.price }}</div>
+                    <div class="coffee-qty">Available: {{ coffee.quantity }}</div>
+                    <input type="number" name="quantity_{{ coffee.id }}" value="0" min="0" max="{{ coffee.quantity }}" style="width: 60px; margin-top: 0.5rem;">
+                    <input type="hidden" name="coffee_id_{{ coffee.id }}" value="{{ coffee.id }}">
+                </div>
+                {% empty %}
+                <p>No coffee items available.</p>
+                {% endfor %}
+            </div>
+            <button type="submit" class="add-btn">Add Selected Items</button>
+        </form>
+    </div>
+</body>
+</html>

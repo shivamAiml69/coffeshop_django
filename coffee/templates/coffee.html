@@ -1,0 +1,143 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Coffee Shop</title>
+    <style>
+        body {
+            margin: 0;
+            font-family: 'Segoe UI', 'Roboto', Arial, sans-serif;
+            background: linear-gradient(120deg, #fbeee6 0%, #d7c4a3 100%);
+            color: #4b2e05;
+        }
+        .top-bar {
+            position: absolute;
+            top: 0;
+            left: 0;
+            padding: 0.7rem 2rem;
+            font-size: 1.1rem;
+            font-weight: bold;
+            color: #fff;
+            background: rgba(111, 78, 55, 0.85);
+            border-bottom-right-radius: 1.2rem;
+            letter-spacing: 1px;
+            box-shadow: 0 2px 8px rgba(111, 78, 55, 0.08);
+            z-index: 10;
+        }
+        .owner-name {
+            font-size: 2.2rem;
+            font-style: italic;
+            letter-spacing: 2px;
+            font-family: 'Segoe Script', 'Brush Script MT', cursive, sans-serif;
+            text-shadow: 1px 2px 8px #6f4e37;
+        }
+        header {
+            background: #6f4e37;
+            color: #fff;
+            padding: 2.5rem 0 1rem 0;
+            text-align: center;
+            box-shadow: 0 2px 8px rgba(111, 78, 55, 0.1);
+            position: relative;
+        }
+        .subtitle {
+            font-size: 1.3rem;
+            font-style: italic;
+            color: #ffe6c7;
+            margin-top: 0.5rem;
+        }
+        .intro {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 2rem;
+            padding: 3rem 2rem;
+            max-width: 900px;
+            margin: 2rem auto;
+            background: rgba(255,255,255,0.85);
+            border-radius: 1.5rem;
+            box-shadow: 0 4px 24px rgba(111, 78, 55, 0.10);
+        }
+        .coffee-img {
+            width: 180px;
+            height: auto;
+            border-radius: 50%;
+            box-shadow: 0 2px 12px rgba(111, 78, 55, 0.15);
+            border: 4px solid #ffe6c7;
+            background: #fffbe6;
+        }
+        .intro h2 {
+            font-size: 2rem;
+            margin-bottom: 0.5rem;
+            color: #6f4e37;
+        }
+        .intro p {
+            font-size: 1.15rem;
+            margin-bottom: 1.2rem;
+        }
+        .cta-btn {
+            display: inline-block;
+            padding: 0.7rem 1.5rem;
+            background: linear-gradient(90deg, #a67c52 0%, #6f4e37 100%);
+            color: #fff;
+            border-radius: 2rem;
+            text-decoration: none;
+            font-weight: bold;
+            box-shadow: 0 2px 8px rgba(111, 78, 55, 0.12);
+            transition: background 0.2s, transform 0.2s;
+            border: none;
+        }
+        .cta-btn:hover {
+            background: linear-gradient(90deg, #d7c4a3 0%, #a67c52 100%);
+            color: #4b2e05;
+            transform: scale(1.05);
+        }
+        .menu-highlight {
+            display: inline-block;
+            background: #ffe6c7;
+            color: #6f4e37;
+            padding: 0.2rem 0.7rem;
+            border-radius: 1rem;
+            font-size: 1.05rem;
+            font-weight: 500;
+            margin-left: 0.3rem;
+        }
+        footer {
+            text-align: center;
+            padding: 1.2rem 0;
+            background: #fbeee6;
+            color: #6f4e37;
+            font-size: 1rem;
+            margin-top: 2rem;
+            border-top: 1px solid #d7c4a3;
+            letter-spacing: 1px;
+        }
+    </style>
+</head>
+<body>
+    <div class="top-bar">
+        <span class="owner-name">Shivam Upadhyay</span>
+    </div>
+    <header>
+        <h1>Welcome to the Coffee Shop</h1>
+        <p class="subtitle">Where every cup tells a story</p>
+    </header>
+    <main>
+        <section class="intro">
+            <img src="{% static 'download.jpg' %}" alt="Coffee Cup" class="coffee-img">
+            <div>
+                <h2>Freshly Brewed, Just for You <span class="menu-highlight">&#9749;</span></h2>
+                <p>
+                    Discover the rich aroma and smooth taste of our hand-selected coffee beans.<br>
+                    <span class="menu-highlight">Espresso</span>, <span class="menu-highlight">Latte</span>, <span class="menu-highlight">Cappuccino</span> and more.<br>
+                    Our baristas craft every cup with passion and care.
+                </p>
+                <a href="{% url 'menu' %}" class="cta-btn">Explore Our Menu</a>
+            </div>
+        </section>
+    </main>
+    <footer>
+        <p>&copy; 2025 Coffee Shop &mdash; Crafted with love</p>
+    </footer>
+</body>
+</html>
